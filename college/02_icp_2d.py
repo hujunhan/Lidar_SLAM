@@ -145,7 +145,7 @@ def icp(reference_points, points, max_iterations=100, distance_threshold=0.3, co
     return transformation_history, points
 if __name__ == '__main__':
     ## Read pickle file and get data
-    data=pickle.load(open('./data/filtered_data.pickle','rb'))
+    data=pickle.load(open('./data/college/2dicp.pickle','rb'))
     fig = plt.figure()
     ## Using matplotlib to plot the data
     T_all=np.eye(3)
@@ -154,8 +154,8 @@ if __name__ == '__main__':
     a=time.time()
     for i in range(len(data)-1):
         c=time.time()
-        reference_points=data[i]
-        points_to_be_aligned=data[i+1]
+        reference_points=data[i][:,0:2]
+        points_to_be_aligned=data[i+1][:,0:2]
         test_points=np.hstack([points_to_be_aligned,np.ones((len(points_to_be_aligned),1))])
         
         transformation_history, aligned_points = icp(reference_points, \
